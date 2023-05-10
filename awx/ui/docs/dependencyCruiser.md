@@ -4,6 +4,8 @@ Validate and visualise dependencies: https://www.npmjs.com/package/dependency-cr
 cd awx/ui
 
 npm install --save-dev dependency-cruiser
+# To access the dot command for visualization
+brew install graphviz
 
 npx depcruise --init
 ✔ Where do your source files live? … src
@@ -16,4 +18,10 @@ npx depcruise --init
 # Validate
 
 npx depcruise --config .dependency-cruiser.js src
+
+
+# Visualize
+
+npx depcruise src --include-only "^src" --config --output-type dot | dot -T svg > dependency-graph.svg
+
 ```

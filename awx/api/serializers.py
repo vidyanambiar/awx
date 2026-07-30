@@ -42,6 +42,7 @@ from rest_framework.utils.serializer_helpers import ReturnList
 from polymorphic.models import PolymorphicModel
 
 # django-ansible-base
+from ansible_base.lib.validators import CleanTextMixin
 from ansible_base.lib.utils.models import get_type_for_model
 from ansible_base.rbac.models import RoleEvaluation, ObjectRole
 from ansible_base.rbac import permission_registry
@@ -3334,7 +3335,7 @@ class JobTemplateMixin(object):
         return super().validate(attrs)
 
 
-class JobTemplateSerializer(JobTemplateMixin, UnifiedJobTemplateSerializer, JobOptionsSerializer):
+class JobTemplateSerializer(CleanTextMixin, JobTemplateMixin, UnifiedJobTemplateSerializer, JobOptionsSerializer):
     show_capabilities = ['start', 'schedule', 'copy', 'edit', 'delete']
     capabilities_prefetch = ['admin', 'execute', {'copy': ['project.use', 'inventory.use']}]
 
